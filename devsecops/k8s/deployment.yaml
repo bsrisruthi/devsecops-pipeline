@@ -13,6 +13,8 @@ spec:
     metadata:
       labels:
         app: health-app
+      annotations:
+        deployment.timestamp: "2026-10-13-v2"  # ADD THIS LINE
     spec:
       containers:
       - name: health-app
