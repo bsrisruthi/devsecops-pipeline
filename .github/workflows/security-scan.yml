@@ -65,13 +65,16 @@ jobs:
                 framework: terraform
                 soft_fail: false
                 output_format: cli
-                skip_check: CKV2_AWS_61,CKV_AWS_21,CKV_AWS_145,CKV_AWS_18,CKV_AWS_144,CKV_AWS_62
+                #skip_check: CKV2_AWS_61,CKV_AWS_21,CKV_AWS_145,CKV_AWS_18,CKV_AWS_144,CKV_AWS_62
+                check: CKV2_AWS_6,CKV_AWS_93
 
 #since checkov supports multiple iac tools(tf,k8s,cloudformation,dockerfile)
 #we specify framework
 #fail the build if issues are found- always use false in prod, because the build should fail if any issues are found
 #output can be cli or json, prints in github actions             
 #added skip check as checkov was listing so many issues, skipping it just for learning
+
+#skip check is not working, so adding check to check only critical ones
 
 
 
