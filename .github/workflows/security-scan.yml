@@ -19,7 +19,7 @@ jobs:
 
             - name: Run TruffleHog
               run: |
-                 docker run --rm -v "$PWD:/scan" ghcr.io/trufflesecurity/trufflehog:latest filesystem /scan --exclude-paths=/scan/.git --fail --json
+                docker run --rm -v "$PWD:/scan" ghcr.io/trufflesecurity/trufflehog:latest filesystem /scan/devsecops --fail --json
 
 #only verified key lets trufflehog check if the keys are real
 #fail means exit with error code if any secrets are found
