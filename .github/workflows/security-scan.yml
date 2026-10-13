@@ -107,7 +107,7 @@ jobs:
                 GITHUB_ACTOR: ${{ github.actor }}
                 GITHUB_REF: ${{ github.ref }}
               run: |
-                pyton devsecops/scripts/notify.py
+                python devsecops/scripts/notify.py
 
 
 
