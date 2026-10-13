@@ -44,9 +44,33 @@ jobs:
                 format: 'table'
                 exit-code: '1'
                 severity: 'CRITICAL'
+            
 #exit-code=1 | fails the build if CVEs are found
 #severity- only fail CRITICAL|HIGH Vulnerabilities
 #changing code to only CRITICAL, since we noticed 44 HIGH CVEs in latest scan
+
+#Checkov Scanning
+    iac-scan:
+        name: Scan Infrastructure as Code
+        runs-on: ubuntu-latest
+        needs: container-scan
+        steps:
+            - name: Checkout Code
+              uses: actions/checkout@v4
+
+            - name: Run Checkov IaC Scan
+              uses: bridgecrewio/checkov-action@master
+              with:
+                directory: devsecops/terraform
+                framework: terraform
+                soft_fail: false
+                output_format: cli
+
+#since checkov supports multiple iac tools(tf,k8s,cloudformation,dockerfile)
+#we specify framework
+#fail the build if issues are found- always use false in prod, because the build should fail if any issues are found
+#output can be cli or json, prints in github actions             
+
 
 
 
