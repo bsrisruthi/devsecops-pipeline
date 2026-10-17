@@ -19,6 +19,7 @@ spec:
       containers:
       - name: health-app
         image: ghcr.io/bsrisruthi/health-app:latest
+        imagePullPolicy: Always  # ADD THIS LINE
         ports:
         - containerPort: 5000
         resources:
