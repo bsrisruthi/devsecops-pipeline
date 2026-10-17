@@ -14,12 +14,12 @@ spec:
       labels:
         app: health-app
       annotations:
-        deployment.timestamp: "2026-10-13-v2"  # ADD THIS LINE
+        deployment.timestamp: "2026-10-17-v3" 
     spec:
       containers:
       - name: health-app
         image: ghcr.io/bsrisruthi/health-app:latest
-        imagePullPolicy: Always  # ADD THIS LINE
+        imagePullPolicy: Always 
         ports:
         - containerPort: 5000
         resources:
