@@ -14,7 +14,7 @@ spec:
       labels:
         app: health-app
       annotations:
-        deployment.timestamp: "2026-10-17-v4-vault"
+        deployment.timestamp: "2026-10-19-v4-rebuild"
     spec:
       containers:
       - name: health-app
