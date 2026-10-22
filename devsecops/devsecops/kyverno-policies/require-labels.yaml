@@ -1,0 +1,37 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: require-labels
+  annotations:
+    policies.kyverno.io/title: Require Standard Labels
+    policies.kyverno.io/category: Best Practices
+    policies.kyverno.io/severity: low
+    policies.kyverno.io/description: >-
+      All resources must have standard labels for tracking and monitoring.
+spec:
+  validationFailureAction: Enforce
+  background: true
+  rules:
+  - name: check-for-labels
+    match:
+      any:
+      - resources:
+          kinds:
+          - Pod
+          - Deployment
+    exclude:
+      any:
+      - resources:
+          namespaces:
+          - kube-system
+          - monitoring
+          - kyverno
+    validate:
+      message: >-
+        Resources must have 'app' and 'env' labels for proper tracking.
+      pattern:
+        metadata:
+          labels:
+            app: "?*"
+            env: "?*"
+

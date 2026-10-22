@@ -1,8 +1,14 @@
 from flask import Flask, jsonify
 import hvac
 import os
+from prometheus_flask_exporter import PrometheusMetrics
 
 app = Flask(__name__)
+
+# Initialize Prometheus metrics
+metrics = PrometheusMetrics(app)
+# Add custom info metric
+metrics.info('app_info', 'Application info', version='v5.0')
 
 # Vault configuration
 VAULT_ADDR = os.getenv('VAULT_ADDR', 'http://host.docker.internal:8200')
@@ -29,7 +35,7 @@ def health():
 
 @app.route("/version", methods=["GET"])
 def version():
-    return "v3.0 - Auto-deployed by ArgoCD!", 200, {"Content-Type": "text/plain"}
+    return "v5.0 - Monitored by Prometheus!", 200, {"Content-Type": "text/plain"}
 
 @app.route("/secret", methods=["GET"])
 def secret():

@@ -1,0 +1,40 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: require-resource-limits
+  annotations:
+    policies.kyverno.io/title: Require Resource Limits
+    policies.kyverno.io/category: Best Practices
+    policies.kyverno.io/severity: medium
+    policies.kyverno.io/description: >-
+      Containers must have memory and CPU limits set to prevent
+      resource exhaustion attacks and cluster instability.
+spec:
+  validationFailureAction: Enforce  # Block non-compliant resources
+  background: true
+  rules:
+  - name: check-container-resources
+    match:
+      any:
+      - resources:
+          kinds:
+          - Pod
+    exclude:
+      any:
+      - resources:
+          namespaces:
+          - kube-system
+          - monitoring
+          - kyverno
+    validate:
+      message: >-
+        All containers must have CPU and memory limits defined.
+        This prevents resource exhaustion.
+      pattern:
+        spec:
+          containers:
+          - resources:
+              limits:
+                memory: "?*"  # Must exist
+                cpu: "?*"     # Must exist
+
